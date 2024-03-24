@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './App.css';
+import Register from './components/Register/Register.jsx';
+import Layout from './components/Layout/Layout.jsx';
+import Login from './components/Login/Login';
+import Home from './components/Home/Home';
+import ProtectRoute from './components/ProtectRoute/ProtectRoute.jsx';
+import InverseProtectRoute from './components/InverseProtectRoute/InverseProtectRoute.jsx';
 
 function App() {
+
+
+
+
+  let routes = createBrowserRouter([
+    {
+      path: '', element: <Layout />, children: [
+        { index: true, element: <InverseProtectRoute><Register /></InverseProtectRoute> },
+        { path: '/login', element: <InverseProtectRoute><Login /></InverseProtectRoute> },
+        { path: '/home', element: <ProtectRoute><Home /></ProtectRoute> },
+      ]
+    }
+  ])
+
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <RouterProvider router={routes} />
+    </>
   );
 }
 
